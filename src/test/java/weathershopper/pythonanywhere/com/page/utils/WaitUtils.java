@@ -3,19 +3,11 @@ package weathershopper.pythonanywhere.com.page.utils;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
-import java.time.Duration;
 
 import static java.io.File.separator;
 
@@ -26,56 +18,56 @@ import static java.io.File.separator;
 public class WaitUtils {
 
     public static String waitAndFetchText(By locator, Long timeout, WebDriver driver) {
-        WebElement webElement = new WebDriverWait(driver, Duration.ofSeconds(timeout))
+        WebElement webElement = new WebDriverWait(driver, timeout)
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
         return webElement.getText();
     }
 
     @Step("Wait for '{timeOut}' Seconds until the PageTitle is: '{expectedTitle}' ")
     public void waitForTitle(String expectedTitle, long timeOut, WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(timeOut));
+        WebDriverWait wait = new WebDriverWait(driver, timeOut);
         wait.until(ExpectedConditions.titleIs(expectedTitle));
     }
 
     public static WebElement waitForElementToBePresent(By locator, Long timeout, WebDriver driver) {
-        return new WebDriverWait(driver, Duration.ofSeconds(timeout))
+        return new WebDriverWait(driver, timeout)
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
     public static void waitAndSendKeys(By locator, String text, Long timeout, WebDriver driver) {
-        WebElement webElement = new WebDriverWait(driver, Duration.ofSeconds(timeout))
+        WebElement webElement = new WebDriverWait(driver, timeout)
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
         webElement.clear();
         webElement.sendKeys(text);
     }
 
     public static void waitAndClick(By locator, Long timeout, WebDriver driver) {
-        new WebDriverWait(driver, Duration.ofSeconds(timeout))
+        new WebDriverWait(driver, timeout)
                 .until(ExpectedConditions.visibilityOfElementLocated(locator))
                 .click();
     }
 
     public static void waitAndDoJavascriptClick(By locator, Long timeout, WebDriver driver) {
         JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].click();", new WebDriverWait(driver, Duration.ofSeconds(timeout))
+        executor.executeScript("arguments[0].click();", new WebDriverWait(driver, timeout)
                 .until(ExpectedConditions.visibilityOfElementLocated(locator)));
     }
 
     public static void waitForElementToBeClickable(By locator, Long timeout, WebDriver driver) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();
     }
 
     public static void waitForPageRefresh(Long timeout, WebDriver driver) {
-        new WebDriverWait(driver, Duration.ofSeconds(timeout)).until(
+        new WebDriverWait(driver, timeout).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
     }
 
     public static WebElement waitForElementToBeVisibleWithTimeout(By locator, long timeout, WebDriver driver) {
         waitForPageRefresh(timeout, driver);
         try {
-            return new WebDriverWait(driver, Duration.ofSeconds(timeout))
+            return new WebDriverWait(driver, timeout)
                     .until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (TimeoutException e) {
             throw new ElementNotInteractableException(locator.toString() + " could not be found or is not visible");

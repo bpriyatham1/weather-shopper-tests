@@ -17,9 +17,8 @@ import static java.io.File.separator;
 public class Configuration {
     private static final String APPLICATION_PROPERTIES_FILENAME = "src" + separator + "test" + separator
             + "resources" + separator + "application.properties";
-
-    private static final String WEB_BROWSER = "web.browser";
     private static final String TEST_ENVIRONMENT_URL = "test.environment.url";
+    private static final String SELENIUM_GRID_URL ="selenium.grid.url";
     private static final String WEATHER_FOR_MOISTURIZER = "weather.for.moisturizer";
     private static final String WEATHER_FOR_SUNSCREEN = "weather.for.sunscreen";
     private static final String CUSTOMER_CARD_NUMBER = "customer.card.number";
@@ -40,12 +39,12 @@ public class Configuration {
         }
     }
 
-    public String getWebBrowser() {
-        return appProperties.getProperty(WEB_BROWSER, "CHROME");
-    }
-
     public String getTestEnvironmentUrl() {
         return appProperties.getProperty(TEST_ENVIRONMENT_URL);
+    }
+
+    public String getSeleniumGridUrl() {
+        return appProperties.getProperty(SELENIUM_GRID_URL);
     }
 
     public Integer getWeatherForMoisturizer() {

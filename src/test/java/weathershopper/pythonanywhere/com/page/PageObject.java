@@ -10,9 +10,6 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import weathershopper.pythonanywhere.com.config.Configuration;
-
-import java.time.Duration;
 
 import static weathershopper.pythonanywhere.com.page.utils.WaitUtils.takeSnapShot;
 import static weathershopper.pythonanywhere.com.page.utils.WaitUtils.waitForPageRefresh;
@@ -30,7 +27,6 @@ public class PageObject {
     protected static final Long TIMEOUT = 20L;
 
     protected WebDriver driver;
-    private Configuration configuration;
 
     public PageObject(WebDriver driver) {
         try {
@@ -52,7 +48,7 @@ public class PageObject {
     public static void waitForElementToBeVisible(By locator, long timeout, WebDriver driver) {
         waitForPageRefresh(timeout, driver);
         try {
-            new WebDriverWait(driver, Duration.ofSeconds(timeout))
+            new WebDriverWait(driver, timeout)
                     .until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (TimeoutException e) {
             takeSnapShot(driver);
@@ -61,7 +57,7 @@ public class PageObject {
     }
 
     protected void waitForPageTitle(String title) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(PageObject.TIMEOUT));
+        WebDriverWait wait = new WebDriverWait(driver, PageObject.TIMEOUT);
         wait.until(ExpectedConditions.titleIs(title));
     }
 

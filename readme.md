@@ -29,6 +29,15 @@ Project Structure settings:
 
 ### Test Execution
 
+### Run Docker command before starting test execution
+To start the docker compose file run below command:
+```
+docker-compose up
+```
+command to verify docker images
+```
+docker ps
+```
 #### Run test from IDE (IntelliJ)
 Click on play button nearby the desired test from intellij
 Test will be running with default settings.
@@ -48,16 +57,17 @@ mvn clean -DtestTags=regression test --fail-at-end
 ```
 mvn clean test -Dsurefire.suiteXmlFiles=testng.xml
 
-
 ### Run specific test
 ```
 mvn clean -Dtest=RegressionTest#performWeatherShopperTaskTest test
 ```
 
-### Run Docker commands
+### Run Docker command after completing the test execution
+To stop the docker compose file run below command  after test execution:
 ```
-docker-compose up
+docker-compose down
 ```
+
 
 ### Selenium grid url
 ```

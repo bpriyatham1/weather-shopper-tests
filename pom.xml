@@ -19,12 +19,13 @@
         <lombok.version>1.18.26</lombok.version>
         <restassured.version>5.3.1</restassured.version>
         <testng.version>7.8.0</testng.version>
-        <selenium.version>4.10.0</selenium.version>
+        <selenium.version>3.141.59</selenium.version>
         <maven.compiler.version>3.8.0</maven.compiler.version>
         <allure.maven.version>2.10.0</allure.maven.version>
         <report.version>2.4.1</report.version>
         <maven.surefire.version>3.0.0-M4</maven.surefire.version>
         <maven.clean.version>3.3.1</maven.clean.version>
+        <webdriver.manager.version>5.4.0</webdriver.manager.version>
     </properties>
 
 
@@ -97,6 +98,11 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdriver.manager.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -127,9 +133,6 @@
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <testFailureIgnore>false</testFailureIgnore>
-                    <argLine>
-                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
-                    </argLine>
                 </configuration>
             </plugin>
             <plugin>
